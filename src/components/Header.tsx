@@ -1,33 +1,39 @@
-import { Text, TouchableHighlight, View } from "react-native";
-import React, { Fragment } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, TouchableOpacity, View } from "react-native";
+import React from "react";
 import SearchIcon from "../assets/icons/IconamoonSearch.svg";
 import FilterIcon from "../assets/icons/LetsIconsFilter.svg";
 import tw from "lib/tailwind";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Header(props: any) {
+export default function Header() {
+  const navigation = useNavigation<any>();
+
   return (
-    <SafeAreaView>
-      <TouchableHighlight
-        style={tw`flex-row items-center gap-2 px-2 bg-green-50`}
-        onPress={() => props.navigation.navigate("BookingVisit")}
+    <View style={tw`w-full flex-row items-center gap-2 my-4`}>
+      <View
+        style={tw`flex-grow rounded-full border border-gray-300  bg-white shadow shadow-gray-400`}
       >
-        <Fragment>
-          <View
-            style={tw`flex-row items-center gap-2 p-2 flex-1 border rounded-full shadow`}
-          >
-            <SearchIcon width={32} height={32} color={"grey"} />
-            <View>
-              <Text>where to?</Text>
-              <Text>Alexandria, Egypt</Text>
-            </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("BookingVisit")}
+          style={tw`flex-row items-center gap-2 p-2`}
+        >
+          <SearchIcon width={32} height={32} color={"grey"} />
+          <View>
+            <Text style={tw`text-sm capitalize font-semibold p-1`}>
+              where to?
+            </Text>
+            <Text style={tw`text-gray-400 text-[12px] p-1`}>
+              Alexandria, Egypt
+            </Text>
           </View>
-          <View style={tw`p-2 mx-5 border rounded-full`}>
-            <FilterIcon width={24} height={24} color={"grey"} />
-          </View>
-          <View />
-        </Fragment>
-      </TouchableHighlight>
-    </SafeAreaView>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={tw`p-4 rounded-full border border-gray-300  bg-white shadow shadow-gray-400`}
+      >
+        <FilterIcon width={24} height={24} color={"grey"} />
+      </View>
+      <View />
+    </View>
   );
 }

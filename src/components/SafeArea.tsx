@@ -1,23 +1,29 @@
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import tw from "lib/tailwind";
+import React from "react";
+import type { PropsWithChildren } from "react";
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  useColorScheme,
+} from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
-export default function SafeArea({children}: PropsWithChildren) {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function SafeArea({ children }: PropsWithChildren) {
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   return (
-    <SafeAreaView style={[styles.container, backgroundStyle]} edges={[]}>
+    <SafeAreaView style={tw`flex-1`}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      {children}
+      <View style={tw`flex-1 bg-gray-50`}>{children}</View>
     </SafeAreaView>
   );
 }

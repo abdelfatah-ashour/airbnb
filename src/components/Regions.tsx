@@ -1,26 +1,45 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { categories } from "constants/categories";
+import { places } from "assets/data/places-data";
+import tw from "lib/tailwind";
 
-export default function Places() {
+type RegionsProps = {
+  selected: string;
+  onSelect: (value: string) => void;
+};
+
+export default function Regions({ selected, onSelect }: RegionsProps) {
   return (
     <FlatList
-      data={categories}
-      renderItem={({ item }) => (
-        <View style={styles.item}>
-          <item.Icon width={32} height={32} color={"grey"} />
-          <Text style={{ textAlign: "center" }}>{item.name}</Text>
-        </View>
-      )}
+      data={places}
+      renderItem={({ item }) => {
+        return (
+          <View>
+            <TouchableOpacity
+              style={tw`w-28 h-28 border border-gray-400 rounded overflow-hidden`}
+              onPress={() => onSelect(item.title)}
+            >
+              <Image
+                source={item.img}
+                alt={item.title}
+                style={tw`w-full h-full`}
+              />
+            </TouchableOpacity>
+            <Text
+              style={tw`text-xs text-center mt-2 capitalize ${
+                selected === item.title
+                  ? "text-gray-950 font-semibold"
+                  : "text-gray-400 font-normal"
+              }`}
+            >
+              {item.title}
+            </Text>
+          </View>
+        );
+      }}
       horizontal
-      contentContainerStyle={{ gap: 20, paddingVertical: 10 }}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={tw`gap-x-4`}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  item: {
-    alignItems: "center",
-    gap: 10,
-  },
-});

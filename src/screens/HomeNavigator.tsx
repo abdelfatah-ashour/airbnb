@@ -18,7 +18,11 @@ export default function HomeNavigator() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Group>
-        <Stack.Screen name="Index" component={Listing} />
+        <Stack.Screen
+          name="Index"
+          component={Listing}
+          options={{ headerShown: false }}
+        />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
         <Stack.Screen name="BookingVisit" component={BookingVisit} />
